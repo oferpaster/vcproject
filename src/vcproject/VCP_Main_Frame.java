@@ -8,15 +8,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class VCP_Main_Frame extends JFrame {
-	
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Main_Panel mainPanel;
-
-	
 
 	public VCP_Main_Frame() {
 		super();
@@ -28,11 +25,11 @@ public class VCP_Main_Frame extends JFrame {
 		getContentPane().setBackground(SystemColor.activeCaption);
 		this.setSize(800, 600);
 		listners();
-		
-		
+
 	}
-	
-	private void listners(){
+
+	private void listners() {
+
 		getMainPanel().getBtnExit().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JFrame frame = new JFrame();
@@ -41,22 +38,22 @@ public class VCP_Main_Frame extends JFrame {
 						"Are you sure you want to exit the application?",
 						"Exit Application", JOptionPane.YES_NO_OPTION);
 
-				if (result == JOptionPane.YES_OPTION)
+				if (result == JOptionPane.YES_OPTION) {
 					frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				closeMainFrame();
-			
+					closeMainFrame();
+				}
+
 			}
 		});
 	}
-	
+
 	private void closeMainFrame() {
 		this.setVisible(false);
 		this.dispose();
 	}
 
 	public Main_Panel getMainPanel() {
-		if(mainPanel == null)
-		{
+		if (mainPanel == null) {
 			mainPanel = new Main_Panel();
 		}
 		return mainPanel;
