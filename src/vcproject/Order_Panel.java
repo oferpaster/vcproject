@@ -4,16 +4,23 @@ import java.awt.SystemColor;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
+import javax.swing.JFormattedTextField;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.text.ParseException;
 
 public class Order_Panel extends JPanel {
 
@@ -23,14 +30,14 @@ public class Order_Panel extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private JTextField textFieldIdNumber;
-	private JTextField textFieldCarNumber;
+	private JFormattedTextField textFieldCarNumber;
 	private JTextField textFieldEmail;
-	private JTextField textFieldDeparturTime;
+	private JFormattedTextField textFieldDeparturTime;
 	private JTextField textFieldArrivalTime;
-	private JPanel panel;
+	private JPanel panelSelction;
 	private JRadioButton rdbtnOneTimeClient;
 	private JRadioButton rdbtnTempClient;
-	private JPanel panel_1;
+	private JPanel panelDetails;
 	private JComboBox comboBox;
 	private JLabel lblTimeOfDeparture;
 	private JLabel lblParkingLot;
@@ -64,97 +71,116 @@ public class Order_Panel extends JPanel {
 		lblOrderType.setBounds(237, 99, 103, 22);
 		add(lblOrderType);
 		
-		panel = new JPanel();
-		panel.setBackground(SystemColor.activeCaption);
-		panel.setBorder(new TitledBorder(UIManager
+		panelSelction = new JPanel();
+		panelSelction.setBackground(SystemColor.activeCaption);
+		panelSelction.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Select",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(352, 86, 185, 46);
-		add(panel);
-		panel.setLayout(null);
+		panelSelction.setBounds(352, 86, 185, 46);
+		add(panelSelction);
+		panelSelction.setLayout(null);
 		
 		rdbtnOneTimeClient = new JRadioButton("In advance");
 		buttonGroup.add(rdbtnOneTimeClient);
 		rdbtnOneTimeClient.setBounds(89, 16, 90, 23);
-		panel.add(rdbtnOneTimeClient);
+		panelSelction.add(rdbtnOneTimeClient);
 		rdbtnOneTimeClient.setBackground(SystemColor.activeCaption);
 		
 		rdbtnTempClient = new JRadioButton("Park now");
 		rdbtnTempClient.setSelected(true);
 		buttonGroup.add(rdbtnTempClient);
 		rdbtnTempClient.setBounds(6, 16, 81, 23);
-		panel.add(rdbtnTempClient);
+		panelSelction.add(rdbtnTempClient);
 		rdbtnTempClient.setBackground(SystemColor.activeCaption);
 		
-		panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(UIManager
+		panelDetails = new JPanel();
+		panelDetails.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Insert details",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel_1.setBounds(231, 178, 360, 268);
-		add(panel_1);
-		panel_1.setLayout(null);
+		panelDetails.setBounds(210, 178, 364, 313);
+		add(panelDetails);
+		panelDetails.setLayout(null);
 		
 		lblIdNumber = new JLabel("ID number:");
 		lblIdNumber.setBounds(6, 16, 197, 22);
-		panel_1.add(lblIdNumber);
+		panelDetails.add(lblIdNumber);
 		lblIdNumber.setFont(new Font("Tahoma", Font.BOLD, 18));
+
 
 		textFieldIdNumber = new JTextField();
 		textFieldIdNumber.setBounds(213, 16, 137, 24);
-		panel_1.add(textFieldIdNumber);
+		panelDetails.add(textFieldIdNumber);
 		textFieldIdNumber.setColumns(10);
 
+		
 		lblCarNumber = new JLabel("Car number:");
 		lblCarNumber.setBounds(6, 49, 197, 22);
-		panel_1.add(lblCarNumber);
+		panelDetails.add(lblCarNumber);
 		lblCarNumber.setFont(new Font("Tahoma", Font.BOLD, 18));
+		
+		try {
+			MaskFormatter formatter = new MaskFormatter("##-###-##");
+			formatter.setValidCharacters("0123456789");
+			textFieldCarNumber = new JFormattedTextField(formatter);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(this,"Formatter error: " + e.getMessage() , "Formatter ERRORE", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
 
-		textFieldCarNumber = new JTextField();
 		textFieldCarNumber.setBounds(213, 49, 137, 24);
-		panel_1.add(textFieldCarNumber);
+		panelDetails.add(textFieldCarNumber);
 		textFieldCarNumber.setColumns(10);
 		
 		textFieldEmail = new JTextField();
 		textFieldEmail.setBounds(213, 83, 137, 24);
-		panel_1.add(textFieldEmail);
+		panelDetails.add(textFieldEmail);
 		textFieldEmail.setColumns(10);
 
 		lblEmail = new JLabel("Email:");
 		lblEmail.setBounds(6, 83, 197, 22);
-		panel_1.add(lblEmail);
+		panelDetails.add(lblEmail);
 		lblEmail.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
 		btnSubmit = new JButton("Submit");
-		btnSubmit.setBounds(247, 219, 103, 38);
-		panel_1.add(btnSubmit);
+		btnSubmit.setBounds(247, 264, 103, 38);
+		panelDetails.add(btnSubmit);
 		
 		lblTimeOfDeparture = new JLabel("Time of departure:");
 		lblTimeOfDeparture.setBounds(6, 117, 197, 22);
-		panel_1.add(lblTimeOfDeparture);
+		panelDetails.add(lblTimeOfDeparture);
 		lblTimeOfDeparture.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
-		textFieldDeparturTime = new JTextField();
-		textFieldDeparturTime.setBounds(213, 117, 137, 24);
-		panel_1.add(textFieldDeparturTime);
+		try {
+			MaskFormatter formatterDeparturTime = new MaskFormatter("##:##");
+			formatterDeparturTime.setValidCharacters("ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+			textFieldDeparturTime = new JFormattedTextField(formatterDeparturTime);
+			textFieldDeparturTime.setText("Hh:Mm  ");
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(this,"Formatter error: " + e.getMessage() , "Formatter ERRORE", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		textFieldDeparturTime.setBounds(213, 117, 210, 24);
+		panelDetails.add(textFieldDeparturTime);
 		textFieldDeparturTime.setColumns(10);
+
 
 		lblParkingLot = new JLabel("Parking lot:");
 		lblParkingLot.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblParkingLot.setBounds(6, 186, 197, 22);
-		panel_1.add(lblParkingLot);
+		panelDetails.add(lblParkingLot);
 		
 		comboBox = new JComboBox();
-		comboBox.setBounds(213, 188, 137, 20);
-		panel_1.add(comboBox);
+		comboBox.setBounds(213, 188, 137, 24);
+		panelDetails.add(comboBox);
 		
 		lblTimeOfArrival = new JLabel("Time of arrival");
 		lblTimeOfArrival.setFont(new Font("Tahoma", Font.BOLD, 18));
 		lblTimeOfArrival.setBounds(6, 153, 197, 22);
-		panel_1.add(lblTimeOfArrival);
+		panelDetails.add(lblTimeOfArrival);
 
 		textFieldArrivalTime = new JTextField();
-		textFieldArrivalTime.setBounds(213, 152, 137, 20);
-		panel_1.add(textFieldArrivalTime);
+		textFieldArrivalTime.setBounds(213, 152, 210, 20);
+		panelDetails.add(textFieldArrivalTime);
 		textFieldArrivalTime.setColumns(10);
 		
 		btnReturn = new JButton("Return");
@@ -199,6 +225,11 @@ public class Order_Panel extends JPanel {
 		rdbtnOneTimeClient.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				oneTime();
+			}
+		});
+		
+		getBtnSubmit().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 			}
 		});
 		
