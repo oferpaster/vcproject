@@ -97,7 +97,7 @@ public class Order_Panel extends JPanel {
 		panelDetails.setBorder(new TitledBorder(UIManager
 				.getBorder("TitledBorder.border"), "Insert details",
 				TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panelDetails.setBounds(210, 178, 364, 313);
+		panelDetails.setBounds(211, 178, 364, 313);
 		add(panelDetails);
 		panelDetails.setLayout(null);
 		
