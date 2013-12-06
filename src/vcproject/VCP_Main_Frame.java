@@ -3,6 +3,7 @@ package vcproject;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import java.awt.Container;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,6 +15,7 @@ public class VCP_Main_Frame extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private Main_Panel mainPanel;
+	private Order_Panel orderPanel;
 
 	public VCP_Main_Frame() {
 		super();
@@ -30,7 +32,7 @@ public class VCP_Main_Frame extends JFrame {
 
 	private void listners() {
 
-		getMainPanel().getBtnExit().addActionListener(new ActionListener() {
+		getMainPanel().getBtnExit().addActionListener(new ActionListener() {/*Exit Button Listener*/
 			public void actionPerformed(ActionEvent arg0) {
 				JFrame frame = new JFrame();
 
@@ -45,6 +47,20 @@ public class VCP_Main_Frame extends JFrame {
 
 			}
 		});
+		
+		getMainPanel().getBtnMakeOrder().addActionListener(new ActionListener() {/*Main Panel Make Order Button Listener*/
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(getOrderPanel());
+			}
+
+			
+		});
+		
+		getOrderPanel().getBtnReturn().addActionListener(new ActionListener() {/*Order Return Button Listener*/
+			public void actionPerformed(ActionEvent e) {
+				setContentPane(getMainPanel());
+			}
+		});
 	}
 
 	private void closeMainFrame() {
@@ -57,5 +73,13 @@ public class VCP_Main_Frame extends JFrame {
 			mainPanel = new Main_Panel();
 		}
 		return mainPanel;
+	}
+	
+	private Order_Panel getOrderPanel() {
+		if(orderPanel == null)
+		{
+			orderPanel = new Order_Panel();
+		}
+		return orderPanel;
 	}
 }
