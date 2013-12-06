@@ -52,8 +52,6 @@ public class VCP_Main_Frame extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				setContentPane(getOrderPanel());
 			}
-
-			
 		});
 		
 		getOrderPanel().getBtnReturn().addActionListener(new ActionListener() {/*Order Return Button Listener*/
