@@ -5,12 +5,25 @@ import java.awt.SystemColor;
 import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+
 import java.awt.Font;
+import java.text.ParseException;
+import java.util.Calendar;
+
 import javax.swing.JRadioButton;
 import javax.swing.border.TitledBorder;
+import javax.swing.text.MaskFormatter;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 import javax.swing.ButtonGroup;
 import javax.swing.JTextField;
+import javax.swing.JComboBox;
+import javax.swing.JFormattedTextField;
+import javax.swing.SwingConstants;
+import javax.swing.JList;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import com.toedter.calendar.JDateChooser;
 
 public class Register_Panel extends JPanel {
 	/**
@@ -21,9 +34,7 @@ public class Register_Panel extends JPanel {
 	private final ButtonGroup buttonGroup = new ButtonGroup();
 	private final ButtonGroup buttonGroup_1 = new ButtonGroup();
 	private JTextField txtIdNumber;
-	private JTextField textFieldCarNumber;
-	private JTextField textField;
-	private JTextField textField_1;
+	private JFormattedTextField formattedTextFieldCarNumber;
 	
 	public Register_Panel() {
 		super();
@@ -35,6 +46,7 @@ public class Register_Panel extends JPanel {
 		this.setSize(785, 575);
 		setBackground(SystemColor.activeCaption);
 		setLayout(null);
+		
 		
 		btnReturn = new JButton("Return");
 		btnReturn.setBounds(10, 519, 93, 35);
@@ -120,20 +132,38 @@ public class Register_Panel extends JPanel {
 		add(txtIdNumber);
 		txtIdNumber.setColumns(10);
 		
-		textFieldCarNumber = new JTextField();
-		textFieldCarNumber.setBounds(307, 246, 230, 24);
-		add(textFieldCarNumber);
-		textFieldCarNumber.setColumns(10);
+		JButton btnSubmit = new JButton("Submit");
+		btnSubmit.setBounds(437, 390, 89, 23);
+		add(btnSubmit);
 		
-		textField = new JTextField();
-		textField.setBounds(307, 283, 230, 24);
-		add(textField);
-		textField.setColumns(10);
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(307, 322, 230, 24);
+		add(comboBox);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(307, 318, 230, 24);
-		add(textField_1);
-		textField_1.setColumns(10);
+		
+		try {
+			formattedTextFieldCarNumber = new JFormattedTextField(new MaskFormatter("##-###-##"));
+			formattedTextFieldCarNumber.setHorizontalAlignment(SwingConstants.CENTER);
+		} catch (ParseException e) {
+			JOptionPane.showMessageDialog(this,"Formatter error: " + e.getMessage() , "Formatter ERRORE", JOptionPane.ERROR_MESSAGE);
+			e.printStackTrace();
+		}
+		formattedTextFieldCarNumber.setBounds(307, 246, 70, 24);
+		add(formattedTextFieldCarNumber);
+		
+		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setBounds(437, 248, 100, 20);
+		add(comboBox_1);
+		
+		JButton btnAddCar = new JButton("Add");
+		btnAddCar.setBounds(381, 247, 51, 24);
+		add(btnAddCar);
+		
+		JDateChooser startDateChooser = new JDateChooser();
+		startDateChooser.setBounds(307, 281, 230, 24);
+		add(startDateChooser);
+		
+		Calendar cal = Calendar.getInstance();
 	}
 	
 	private void listners() {
